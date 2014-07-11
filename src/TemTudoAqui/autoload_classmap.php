@@ -1,0 +1,22 @@
+<?php
+return array(
+    'TemTudoAqui\Common\Locality\Controller\CountryController' 		=> __DIR__ . '/Common/Locality/Controller/CountryController.php',
+    'TemTudoAqui\Common\Locality\Controller\StateController' 		=> __DIR__ . '/Common/Locality/Controller/StateController.php',
+    'TemTudoAqui\Common\Locality\Controller\CityController' 		=> __DIR__ . '/Common/Locality/Controller/CityController.php',
+    'TemTudoAqui\Common\Locality\Controller\AddressController' 		=> __DIR__ . '/Common/Locality/Controller/AddressController.php',
+    'TemTudoAqui\Common\Controller\MetierController' 				=> __DIR__ . '/Common/Controller/MetierController.php',
+    'TemTudoAqui\Common\Controller\BusinessController' 				=> __DIR__ . '/Common/Controller/ProfessionController.php',
+    'TemTudoAqui\Common\Controller\SchoolingController' 			=> __DIR__ . '/Common/Controller/SchoolingController.php',
+    'TemTudoAqui\Common\Controller\HobbieController' 			    => __DIR__ . '/Common/Controller/HobbieController.php',
+    'TemTudoAqui\User\Controller\UserController' 			        => __DIR__ . '/User/Controller/UserController.php',
+    'TemTudoAqui\User\Controller\TelephoneController' 		        => __DIR__ . '/User/Controller/TelephoneController.php',
+    'TemTudoAqui\User\Controller\EmailController' 			        => __DIR__ . '/User/Controller/EmailController.php',
+    'TemTudoAqui\User\Controller\CardController' 			        => __DIR__ . '/User/Controller/CardController.php',
+    'TemTudoAqui\User\Controller\RoleController' 			        => __DIR__ . '/User/Controller/RoleController.php',
+    'TemTudoAqui\User\Controller\PrivilegeController' 		        => __DIR__ . '/User/Controller/PrivilegeController.php',
+    'TemTudoAqui\User\Controller\ResourceController' 		        => __DIR__ . '/User/Controller/ResourceController.php',
+    'TemTudoAqui\User\Controller\UserPrivilegeController' 	        => __DIR__ . '/User/Controller/UserPrivilegeController.php',
+    'TemTudoAqui\User\Controller\RolePrivilegeController' 	        => __DIR__ . '/User/Controller/RolePrivilegeController.php',
+    'TemTudoAqui\Store\Controller\CategoryController' 	            => __DIR__ . '/Store/Controller/CategoryController.php',
+    'TemTudoAqui\Store\Controller\ProductController' 	            => __DIR__ . '/Store/Controller/ProductController.php',
+);
