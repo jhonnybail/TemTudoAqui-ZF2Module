@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
-	"temtudoaqui/library": "0.0.*@dev",
+	"temtudoaqui/library": "dev-master",
          "zendframework/zendframework": "2.3.*",
 	"doctrine/doctrine-orm-module": "*"
     },
