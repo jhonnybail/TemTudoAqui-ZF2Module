@@ -104,7 +104,7 @@ class RoleController extends Controller
             $manager = $this->getServiceLocator()->get('Zend\Session\SessionManager');
             if($manager->getStorage()->role != 1){
                 foreach($rs['root'] as $v){
-                    if($v->id != 1)
+                    if($v->id >= $manager->getStorage()->role)
                         $rsA[] = $v;
                 }
 

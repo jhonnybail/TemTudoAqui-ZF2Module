@@ -14,7 +14,8 @@ class Session extends ArrayObject {
 
     private static  $file   = null;
 
-    public function __construct(Request $request){
+    public function __construct(Request $request)
+    {
 
         if(!(self::$file instanceof File)){
             self::$file = new File(new URLRequest(System::GetVariable('pathSession').$request->getCookie()->session.".cok"));

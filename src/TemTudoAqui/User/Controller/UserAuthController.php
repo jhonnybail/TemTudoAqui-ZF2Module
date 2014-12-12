@@ -77,11 +77,11 @@ class UserAuthController extends Controller
                     //
 
                     //Password
-                    if(!empty($password) && $password != $data->password){
-                        $obj->password = $data->password;
+                    if(empty($data->password)){
+                        $obj->password = @$password;
                     }
-                    if(!empty($password2) && $password2 != $data->password2){
-                        $obj->password2 = $data->password2;
+                    if(empty($data->password2)){
+                        $obj->password2 = @$password2;
                     }
                     //
 
@@ -173,7 +173,7 @@ class UserAuthController extends Controller
                         $htmlMarkup .= '
                         <br />
                         ==================================================<br />
-                        '.(is_null($userAuth->role) ? '' : '<strong>Função: </strong> {$userAuth->role->name}')."
+                        '.(is_null($userAuth->role) ? '' : "<strong>Função: </strong> {$userAuth->role->name}")."
                         <br />
                         <strong>Usuário: </strong> {$userAuth->username}<br />
                         <strong>Senha: </strong> {$userAuth->password}<br />
@@ -182,6 +182,7 @@ class UserAuthController extends Controller
                     $htmlMarkup .= '
                     <br />
                     ================
+                    <br /><br />
 
                     Em caso de dúvidas, entre em contato conosco através do email '.System::GetVariable('technicalEmail').'
                     <br />'.
@@ -224,7 +225,7 @@ class UserAuthController extends Controller
     
 	protected function convertFields(UserAuth $obj){
 
-        if($obj->registrationDate != null){
+        if(!is_null($obj->registrationDate)){
             $d = new DateTime($obj->registrationDate, DateTime::EXT);
             $obj->registrationDate = $d;
         }else

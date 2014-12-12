@@ -1,5 +1,5 @@
 {
-    "name":        "temtudoaqui/tta-module-zf2",
+    "name":       "temtudoaqui/tta-module-zf2",
     "description": "Zend Framework 2 Module that provides basic functions TemTudoAqui",
     "type":        "CMS",
     "homepage":    "http://www.temtudoaqui.info/",
@@ -17,8 +17,8 @@
     ],
     "require": {
         "php": ">=5.3.3",
-	"temtudoaqui/library": "*",
-        "zendframework/zendframework": "2.3.*",
+	"temtudoaqui/library": "0.0.*@dev",
+         "zendframework/zendframework": "2.3.*",
 	"doctrine/doctrine-orm-module": "*"
     },
     "minimum-stability": "dev",

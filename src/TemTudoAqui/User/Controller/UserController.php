@@ -17,8 +17,7 @@ use TemTudoAqui\Common\Controller,
     TemTudoAqui\Utils\Net\URLRequest,
     TemTudoAqui\Utils\Data\ImageFile,
     TemTudoAqui\Exception,
-    TemTudoAqui\System,
-    TemTudoAqui\Utils\Net\NetException;
+    TemTudoAqui\System;
 
 class UserController extends Controller
 {
@@ -269,13 +268,20 @@ class UserController extends Controller
 
             if(true){
 
-                $file       = $this->getRequest()->getFiles()->get("image");
-                $img        = new ImageFile(new URLRequest($file['tmp_name']));
-                $ex         = explode(".", $file['name']);
-                $newName    = md5($img->fileName.date("YmdHis")).".".$ex[count($ex)-1];
-                FileReference::Move($img, System::GetVariable('DOCUMENT_ROOT').User::AVATAR_DIR.$newName, true);
+                $file           = $this->getRequest()->getFiles()->get("image");
+                $img            = new ImageFile(new URLRequest($file['tmp_name']));
+                $ex             = explode(".", $file['name']);
+                $newName        = md5($img->fileName.date("YmdHis"));
+                $newExtension   = $ex[count($ex)-1];
+                //FileReference::Move($img, System::GetVariable('DOCUMENT_ROOT').User::AVATAR_DIR.$newName, true);
+                //FileReference::Permission(System::GetVariable('DOCUMENT_ROOT').User::AVATAR_DIR.$newName, 644);
 
-                $rs['file'] = System::GetVariable("REQUEST_SCHEME")."://".System::GetVariable("HTTP_HOST").User::AVATAR_DIR.$newName;
+                $img->open();
+                $newImage       = $img->resize(800, 600);
+
+                FileReference::Save($newImage, System::GetVariable('DOCUMENT_ROOT').User::AVATAR_DIR, $newName, $newExtension);
+
+                $rs['file'] = System::GetVariable("protocol")."://".System::GetVariable("HTTP_HOST").User::AVATAR_DIR.$newName.".".$newExtension;
                 $rs['success'] = true;
 
             }
@@ -386,21 +392,7 @@ class UserController extends Controller
 			$obj->cnpj 	= new String(str_replace("_", "", str_replace("-", "", str_replace(".", "", str_replace("/", "", $obj->cnpj)))));
 
         if($obj->avatar != null){
-            try{
-                $obj->avatar = new ImageFile(new URLRequest($obj->avatar));
-            }catch(NetException $e){
-                if($e->getCode() == 6){
-                    try{
-                        $obj->avatar = new ImageFile(new URLRequest($_SERVER['DOCUMENT_ROOT'].User::AVATAR_DIR.$obj->avatar));
-                    }catch(NetException $e2){
-                        if($e2->getCode() == 6)
-                            $obj->avatar = '';
-                        else
-                            throw $e2;
-                    }
-                }else
-                    throw $e;
-            }
+            $obj->avatar = new ImageFile(new URLRequest(str_replace(System::GetVariable('url'), System::GetVariable('directory'), $obj->avatar)));
         }
 
 		if(is_integer($obj->contactPerson)){

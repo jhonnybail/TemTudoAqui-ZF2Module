@@ -220,8 +220,8 @@ class Dao {
 			$am = $metaData->getAssociationMapping($fieldName);
 			if(($am['type'] == 2 || $am['type'] == 1) && $obj->$fieldName != null && !($obj->$fieldName instanceof String) && !($obj->$fieldName instanceof Number)){
 				$id = null;
-				if($obj->$fieldName->id instanceof Number || is_int($obj->$fieldName->id))
-					if($obj->$fieldName->id instanceof Number)
+                if($obj->$fieldName->id instanceof Number || is_int($obj->$fieldName->id)){
+                    if($obj->$fieldName->id instanceof Number)
 						$id = (int)$obj->$fieldName->id->getValue();
 					else
 						$id = $obj->$fieldName->id;
@@ -231,14 +231,24 @@ class Dao {
 					}elseif($id == -1){
 						$query->andWhere('p.'.$fieldName.' IS NULL');
 					}
-				else
+                }elseif(is_object($obj->$fieldName)){
 					if(($obj->$fieldName->id != null && $obj->$fieldName->id != '' && ((int)((string)$obj->$fieldName->id)) > -1) || ((string) $obj->$fieldName->id) == "0"){
 						$query->andWhere('p.'.$fieldName.' = :'.$fieldName)
 								->setParameter($fieldName, $obj->$fieldName->id);
 					}elseif($obj->$fieldName->id == -1){
 						$query->andWhere('p.'.$fieldName.' IS NULL');
 					}
-			}
+                }else{
+
+                    if($obj->$fieldName < 0){
+                        $query->andWhere('p.'.$fieldName.' IS NULL');
+                    }
+                }
+			}elseif(($obj->$fieldName instanceof String) || ($obj->$fieldName instanceof Number) || is_string($obj->$fieldName) || is_numeric($obj->$fieldName)){
+                if((int)((string)$obj->$fieldName) < 0){
+                    $query->andWhere('p.'.$fieldName.' IS NULL');
+                }
+            }
 
 		}
 
@@ -351,7 +361,11 @@ class Dao {
 					}elseif($obj->$fieldName->id == -1){
 						$query->andWhere('p.'.$fieldName.' IS NULL');
 					}
-			}
+			}elseif(($obj->$fieldName instanceof String) || ($obj->$fieldName instanceof Number) || is_string($obj->$fieldName) || is_numeric($obj->$fieldName)){
+                if((int)((string)$obj->$fieldName) < 0){
+                    $query->andWhere('p.'.$fieldName.' IS NULL');
+                }
+            }
 
 		}
 		

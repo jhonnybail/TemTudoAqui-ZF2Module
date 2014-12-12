@@ -41,11 +41,11 @@ class Object extends Generic implements IObjectEventManager
 		
 		foreach($array as $key => $value){
 
-            if(!preg_match("!password!", $key)){
+            if(!preg_match("!password!", $key) || true){
 
                 if($value instanceof \TemTudoAqui\Utils\Data\File){
                     if(!empty($value->urlRequest))
-                        $array[$key] = str_replace(System::GetVariable("DOCUMENT_ROOT"), System::GetVariable("REQUEST_SCHEME")."://".System::GetVariable("HTTP_HOST"), (string) $value->urlRequest->url);
+                        $array[$key] = str_replace(System::GetVariable("DOCUMENT_ROOT"), System::GetVariable("protocol")."://".System::GetVariable("HTTP_HOST"), (string) $value->urlRequest->url);
                     else
                         $array[$key] = "";
                 }elseif($value instanceof \TemTudoAqui\Object){
@@ -58,9 +58,9 @@ class Object extends Generic implements IObjectEventManager
                     }elseif($value instanceof \Doctrine\Common\Collections\ArrayCollection){
                         unset($array[$key]);
                     }elseif($value instanceof \DateTime)
-                        $array[$key] = $value->format("Y-m-d H:m");
+                        $array[$key] = $value->format("Y-m-d H:i:s");
                     elseif($value instanceof \TemTudoAqui\Utils\Data\DateTime)
-                        $array[$key] = (string)$value->get("Y-m-d H:m");
+                        $array[$key] = (string)$value->get("Y-m-d H:i:s");
                     elseif($value instanceof \TemTudoAqui\Utils\Data\File)
                         $array[$key] = (string)$value->urlRequest->url;
                     else
