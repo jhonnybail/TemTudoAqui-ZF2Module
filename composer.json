@@ -26,10 +26,5 @@
         "psr-0": {
             "TemTudoAqui\\": "src/"
         }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.0.x-dev"
-        }
     }
 }
