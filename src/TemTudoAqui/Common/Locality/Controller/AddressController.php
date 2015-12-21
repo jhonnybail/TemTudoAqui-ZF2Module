@@ -84,15 +84,19 @@ class AddressController extends Controller
     		
     		$get 				= $this->getRequest()->getQuery();
     		$dao 				= $this->getServiceLocator()->get("TemTudoAqui\User\Dao\UserDao");
-    		
-    		$obj 				= new User;
-    		$obj->id			= $get->get('user');
-    		$obj 				= $dao->findById($obj);
-    		$temp				= new ArrayObject;
-    		
-    		if($obj != null)
-	    		foreach($obj->getAddresses() as $address) 			
-	    			$temp->append($address->toArray());
+            $temp				= new ArrayObject;
+
+            if($get->get('user') > 0){
+
+                $obj 				= new User;
+                $obj->id			= $get->get('user');
+                $obj 				= $dao->findById($obj);
+
+                if($obj != null)
+                    foreach($obj->getAddresses() as $address)
+                        $temp->append($address->toArray());
+
+            }
 	    	
     		$rs = parent::listByArray($temp);
     		

@@ -163,6 +163,9 @@ class Module
                 'TemTudoAqui\Common\Dao\HobbieDao' => function($service){
                     return new \TemTudoAqui\Common\Dao\HobbieDao($service->get('Doctrine\ORM\EntityManager'));
                 },
+                'TemTudoAqui\Common\Dao\ServiceDao' => function($service){
+                    return new \TemTudoAqui\Common\Dao\ServiceDao($service->get('Doctrine\ORM\EntityManager'));
+                },
                 'TemTudoAqui\Common\Dao\SchoolingDao' => function($service){
                     return new \TemTudoAqui\Common\Dao\SchoolingDao($service->get('Doctrine\ORM\EntityManager'));
                 },

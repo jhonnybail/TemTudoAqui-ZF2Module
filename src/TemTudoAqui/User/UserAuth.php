@@ -3,7 +3,12 @@
 namespace TemTudoAqui\User;
 
 use Doctrine\ORM\Mapping as ORM,
-	TemTudoAqui\Object;
+	TemTudoAqui\Object,
+    TemTudoAqui\System,
+    Zend\Mail\Message,
+    Zend\Mail\Transport\Sendmail,
+    Zend\Mime\Message as MimeMessage,
+    Zend\Mime\Part as MimePart;
 
 /**
  * @ORM\Entity
@@ -19,6 +24,7 @@ class UserAuth extends Object {
 	 * Chave primária.
 	 * @var integer
      * @ORM\Id @ORM\Column(type="integer")
+     * @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
      * @ORM\GeneratedValue
      */
     protected 	$id;
@@ -109,6 +115,56 @@ class UserAuth extends Object {
      */
     public function getPrivilegies(){
     	return $this->privilege;
+    }
+
+    public function sendRegisterEmail(){
+
+        if($this->role->id > 0)
+            $nivel = $this->role->name;
+        else
+            $nivel = 'Usuário Personalizado';
+
+        $htmlMarkup = "
+                    <p>Caro(a) {$this->user->name},</p>
+                    <p>foi realizado um cadastro de usuário de nível {$nivel} no sistema ".System::GetVariable('companyName').",</p>
+                    <p>acesse o link abaixo para registrar seus dados de acesso:</p>
+                    <p><a href='".System::GetVariable('url')."register?idauth={$this->id}'>".System::GetVariable('url')."register?idauth={$this->id}</a></p>
+                    ";
+
+        $htmlMarkup .= '
+                    <br />
+                    ================
+                    <br /><br />
+
+                    Em caso de dúvidas, entre em contato conosco através do email '.System::GetVariable('technicalEmail').'
+                    <br />'.
+            System::GetVariable('companyName').'<br />'.
+            System::GetVariable('url');
+
+        $html = new MimePart($htmlMarkup);
+        $html->type = "text/html";
+
+        $body = new MimeMessage();
+        $body->setParts(array($html));
+
+        $message = new Message();
+        $message->setBody($body);
+
+        if($this->user->getEmails()->count() > 0){
+
+            foreach($this->user->getEmails() as $email){
+                $message
+                    ->setEncoding("UTF-8")
+                    ->addFrom((string)System::GetVariable('technicalEmail'), (string)System::GetVariable('companyName'))
+                    ->addTo($email->email)
+                    ->setSubject("Registro de Dados de Acesso");
+
+                $transport = new Sendmail;
+                $transport->send($message);
+            }
+
+        }
+
     }
     
     /**

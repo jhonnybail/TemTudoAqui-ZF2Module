@@ -78,18 +78,22 @@ class HobbieController extends Controller
     		
     		$get 				= $this->getRequest()->getQuery();
     		$dao 				= $this->getServiceLocator()->get("TemTudoAqui\User\Dao\UserDao");
+            $temp				= new ArrayObject;
+
+            if($get->get('user') > 0){
     		
-    		$obj 				= new User;
-    		$obj->id			= $get->get('user');
-    		$obj 				= $dao->findById($obj);
-    		$temp				= new ArrayObject;
-    		
-    		if($obj != null)
-	    		foreach($obj->getHobbies() as $hob) {
-								
-	    			$temp->append($hob->toArray());
-				}
-	    	
+                $obj 				= new User;
+                $obj->id			= $get->get('user');
+                $obj 				= $dao->findById($obj);
+
+                if($obj != null)
+                    foreach($obj->getHobbies() as $hob) {
+
+                        $temp->append($hob->toArray());
+                    }
+
+            }
+
     		$rs = parent::listByArray($temp);
     		
     	}catch(\Doctrine\Common\Proxy\Exception\UnexpectedValueException $e){

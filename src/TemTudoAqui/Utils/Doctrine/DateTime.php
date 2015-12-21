@@ -19,12 +19,17 @@ class DateTime extends DateTimeType {
     }
 	
 	public function convertToDatabaseValue($value, AbstractPlatform $platform){
-		if($value){
+
+        if($value){
+
 			if(is_string($value))
 				$value = new Data\DateTime($value, "Y-m-d H:i:s");
-			
-			return $value->format("Y-m-d H:i:s");		
-		}
+
+			return $value->format("Y-m-d H:i:s");
+            
+		}else
+            return null;
+
     }
 
     public function getName(){

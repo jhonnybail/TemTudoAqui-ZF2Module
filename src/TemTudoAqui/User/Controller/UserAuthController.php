@@ -22,7 +22,7 @@ class UserAuthController extends Controller
 {
 
     public function __construct(){
-        $this->setDaoName("TemTudoAqui\User\Dao\UserAuthDao");
+        $this->setDaoName('TemTudoAqui\User\Dao\UserAuthDao');
     }
 
 	public function saveAction(UserAuth $obj = null)
@@ -47,8 +47,8 @@ class UserAuthController extends Controller
                         $obj->id    = $data->id;
                         $obj        = $this->getDao()->findById($obj);
 
-                        $password   = $obj->password;
-                        $password2  = $obj->password2;
+                        //$password   = $obj->password;
+                        //$password2  = $obj->password2;
                     }
 
                     $rs 		= parent::saveAction($obj);
@@ -76,14 +76,17 @@ class UserAuthController extends Controller
                     }
                     //
 
-                    //Password
+                    /*/Password
                     if(empty($data->password)){
                         $obj->password = @$password;
                     }
                     if(empty($data->password2)){
                         $obj->password2 = @$password2;
                     }
-                    //
+                    /*/
+
+                    if($obj->username == "")
+                        $obj->sendRegisterEmail();
 
                 }
 

@@ -8,6 +8,7 @@ return array(
     'TemTudoAqui\Common\Controller\BusinessController' 				=> __DIR__ . '/Common/Controller/ProfessionController.php',
     'TemTudoAqui\Common\Controller\SchoolingController' 			=> __DIR__ . '/Common/Controller/SchoolingController.php',
     'TemTudoAqui\Common\Controller\HobbieController' 			    => __DIR__ . '/Common/Controller/HobbieController.php',
+    'TemTudoAqui\Common\Controller\ServiceController' 			    => __DIR__ . '/Common/Controller/ServiceController.php',
     'TemTudoAqui\User\Controller\UserController' 			        => __DIR__ . '/User/Controller/UserController.php',
     'TemTudoAqui\User\Controller\TelephoneController' 		        => __DIR__ . '/User/Controller/TelephoneController.php',
     'TemTudoAqui\User\Controller\EmailController' 			        => __DIR__ . '/User/Controller/EmailController.php',
