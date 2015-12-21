@@ -1,6 +1,7 @@
 {
     "name":        "temtudoaqui/tta-module-zf2",
     "description": "Zend Framework 2 Module that provides basic functions TemTudoAqui",
+    "version":     "1.0.0",
     "type":        "CMS",
     "homepage":    "http://www.temtudoaqui.info/",
     "keywords":    [
@@ -25,11 +26,6 @@
     "autoload": {
         "psr-0": {
             "TemTudoAqui\\": "src/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.0.x-dev"
         }
     }
 }
